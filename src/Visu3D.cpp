@@ -1,16 +1,16 @@
 #include "Visu3D.h"
 
 
-Visu3D::Visu3D(QVector<QVector3D> &_verticeData, QVector<int> &_greyData, QWidget *parent)
+Visu3D::Visu3D(QVector<QVector3D> &_verticeData, QVector<int> &_greyData, int _lvlGreyMax, size_t sizeGrid[DIM], QWidget *parent)
     : QGLWidget(QGLFormat(), parent), verticesData(_verticeData), greyData(_greyData)
 {
     alpha = 25;
     beta = -25;
-    distance = 1.5 * sizeGrid.z;
+    distance = 1.5 * sizeGrid[2];
+    lvlOfGreyMax = _lvlGreyMax;
 
     updateGL();
 }
-
 
 Visu3D::~Visu3D()
 {
@@ -111,7 +111,7 @@ void Visu3D::makeLandMark(QMatrix4x4 mTransformation){
 
     // repere
     glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(mTransformation.constData());
+    glLoadMatrixd(mTransformation.constData());
     glLineWidth(2.5);
     glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_LINES);

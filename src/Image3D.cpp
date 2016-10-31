@@ -5,6 +5,9 @@ Image3D::Image3D(const char *in_file): in_name_file(in_file)
     readFile(in_file);
     build();
 }
+
+
+
 QVector<QVector3D> Image3D::getVerticesData() const
 {
     return verticesData;
@@ -15,13 +18,10 @@ void Image3D::setVerticesData(const QVector<QVector3D> &value)
     verticesData = value;
 }
 
-
-
-void Image3D::makeQuad(coord3D posA, coord3D posB, coord3D posC, coord3D posD)
+void Image3D::makeQuad(QVector3D posA, QVector3D posB, QVector3D posC, QVector3D posD)
 {
     verticesData << posA << posD << posB; // Premier triangle, sens anti-horaire
     verticesData << posA << posC << posD;
-
 }
 
 void Image3D::makeCube(coord3D position)
@@ -57,16 +57,16 @@ void Image3D::makeCube(coord3D position)
 void Image3D::build()
 {
     coord3D halfSizeGrid;
-    halfSizeGrid.x = (int)sizeGrid.x/2;
-    halfSizeGrid.y = (int)sizeGrid.y/2;
-    halfSizeGrid.z = (int)sizeGrid.z/2;
+    halfSizeGrid.x = (int)sizeGrid[0] / 2;
+    halfSizeGrid.y = (int)sizeGrid[1] / 2;
+    halfSizeGrid.z = (int)sizeGrid[2] / 2;
 
     coord3D centreCube;
 
-    for (int i = 0; i < sizeGrid.z; ++i){
-        for (int j = 0; j < sizeGrid.y; ++j){
-            for (int k = 0; k < sizeGrid.x; ++k){
-                if (greyData->at(i*sizeGrid.y*sizeGrid.x + j*sizeGrid.x + k) != 0){
+    for (uint i = 0; i < sizeGrid[2] ; ++i){
+        for (uint j = 0; j < sizeGrid[1] ; ++j){
+            for (uint k = 0; k < sizeGrid[0]; ++k){
+                if (greyData.at(i*sizeGrid[1] * sizeGrid[0] + j*sizeGrid[0] + k) != 0){
                     centreCube.x = (k*SIZEVOXEL_X) - halfSizeGrid.x;
                     centreCube.y = (j*SIZEVOXEL_Y) - halfSizeGrid.y,
                     centreCube.z = (i*SIZEVOXEL_Z) - halfSizeGrid.z,
@@ -82,7 +82,7 @@ void Image3D::build()
 
 void Image3D::readFile(const char *in)
 {
-    inStream.open(in_file);
+    ifstream inStream(in);
 
     string str;
     inStream >> str;

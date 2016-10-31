@@ -1,6 +1,6 @@
 #version 330
 
-in float grey;
+in int grey;
 uniform float greyMax;
 
 out vec4 fragColor;

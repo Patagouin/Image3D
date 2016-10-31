@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
     QVector<QVector3D> verticeData = image3D.verticesData;
     QVector<int> greyData = image3D.greyData;
-    Visu3D *visualisation = new Visu3D(verticeData, greyData);
+    Visu3D *visualisation = new Visu3D(verticeData, greyData, nbLvlGrey, size);
 
     visualisation->show();
 

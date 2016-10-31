@@ -29,14 +29,14 @@ class Image3D
 public:
     Image3D(const char* in);
 
-    coord3D sizeGrid; // Size of the voxel grid
+    size_t sizeGrid[DIM]; // Size of the voxel grid
 
     QVector<int> greyData; // grey level array
     unsigned int nbGrey;
 
     QVector<QVector3D> verticesData;
 
-    void makeQuad(coord3D posA, coord3D posB, coord3D posC, coord3D posD); // (floats)
+    void makeQuad(QVector3D posA, QVector3D posB, QVector3D posC, QVector3D posD); // (floats)
     void makeCube(coord3D position); // centre du cube (des ints)
 
     unsigned int getNbGrey() const;
@@ -48,6 +48,7 @@ public:
 
 
     void setVerticesData(const QVector<QVector3D> &value);
+    QVector<QVector3D> getVerticesData() const;
 
 protected:
     ifstream inStream;

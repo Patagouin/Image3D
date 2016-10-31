@@ -1,17 +1,8 @@
 #ifndef VISU3D_H
 #define VISU3D_H
 
-#include <QGLWidget>
-#include <QGLShaderProgram>
-#include <QGLBuffer>
-
-#include <QMouseEvent>
-#include <QWheelEvent>
-
-
-
-
-
+#include <QtOpenGL>
+#include "Image3D.h"
 
 
 class Visu3D : public QGLWidget
@@ -19,7 +10,7 @@ class Visu3D : public QGLWidget
     Q_OBJECT
 public:
     // Passage des données par pointeur
-    Visu3D(QVector<QVector3D> &_verticeData, QVector<int> &_greyData, QWidget *parent = 0);
+    Visu3D(QVector<QVector3D> &_verticeData, QVector<int> &_greyData, int _lvlGreyMax, size_t sizeGrid[DIM], QWidget *parent = 0);
     ~Visu3D();
 
 
@@ -36,7 +27,7 @@ protected:
 private:
 
     QVector<QVector3D> verticesData;
-    QVector<float> greyData;
+    QVector<int> greyData;
 
     QGLBuffer verticesDataBuffer;
     QGLBuffer greyDataBuffer;
@@ -50,6 +41,7 @@ private:
     double alpha;
     double beta;
     double distance;
+    int lvlOfGreyMax;
     QPoint lastMousePosition;
 
 
